@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.laputa.mybatis.mapper.EmployeeMapper">
+
+    <!-- mysql数据库语句映射，如果没有mysql可以去掉这个配置段 -->
+
+    <!-- Long addEmp(Employee emp); -->
+    <insert id="addEmp" parameterType="org.laputa.mybatis.entity.Employee" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `employee`(`name`,`email`,`gender`)
+		VALUES(#{name},#{email},#{gender})
+	</insert>
+
+	<!-- List<Employee> getAllEmps(); -->
+	<select id="getAllEmps" resultType="org.laputa.mybatis.entity.Employee">
+		SELECT * FROM `employee`
+	</select>
+
+    <!-- Employee getEmpById(Integer id); -->
+    <select id="getEmpById" resultType="org.laputa.mybatis.entity.Employee">
+		SELECT * FROM `employee` WHERE `id` = #{id}
+	</select>
+
+    <!-- Long updateEmp(Employee emp); -->
+    <update id="updateEmp">
+		UPDATE `employee`
+		SET `name`=#{name},`email`=#{email},`gender`=#{gender}
+		WHERE `id`=#{id}
+	</update>
+
+    <!-- Long delEmpById(Integer id); -->
+    <delete id="delEmpById">
+		DELETE FROM `employee` WHERE `id`=#{id}
+	</delete>
+
+</mapper>
