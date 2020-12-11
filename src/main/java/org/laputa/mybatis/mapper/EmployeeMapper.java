@@ -1,5 +1,6 @@
 package org.laputa.mybatis.mapper;
 
+import org.apache.ibatis.session.RowBounds;
 import org.laputa.mybatis.entity.Employee;
 
 import java.util.List;
@@ -14,4 +15,10 @@ public interface EmployeeMapper {
     Long updateEmp(Employee emp);
 
     Long delEmpById(Integer id);
+
+    List<Employee> getEmpsLikeName(String name);
+
+    List<Employee> getEmpsOrderByIdDesc();
+
+    List<Employee> getEmpsByPage(RowBounds bounds);
 }

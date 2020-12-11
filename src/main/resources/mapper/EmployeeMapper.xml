@@ -12,8 +12,8 @@
 		VALUES(#{name},#{email},#{gender})
 	</insert>
 
-	<!-- List<Employee> getAllEmps(); -->
-	<select id="getAllEmps" resultType="org.laputa.mybatis.entity.Employee">
+    <!-- List<Employee> getAllEmps(); -->
+    <select id="getAllEmps" resultType="org.laputa.mybatis.entity.Employee">
 		SELECT * FROM `employee`
 	</select>
 
@@ -33,5 +33,20 @@
     <delete id="delEmpById">
 		DELETE FROM `employee` WHERE `id`=#{id}
 	</delete>
+
+    <!-- List<Employee> getEmpsLikeName(String name); -->
+    <select id="getEmpsLikeName" resultType="org.laputa.mybatis.entity.Employee">
+		SELECT * FROM `employee` WHERE `name` LIKE '%${name}%'
+	</select>
+
+    <!-- List<Employee> getEmpsOrderByIdDesc(); -->
+    <select id="getEmpsOrderByIdDesc" resultType="org.laputa.mybatis.entity.Employee">
+		SELECT * FROM `employee` ORDER BY `id` DESC
+	</select>
+
+    <!-- List<Employee> getEmpsByPage(RowBounds bounds); -->
+    <select id="getEmpsByPage" resultType="org.laputa.mybatis.entity.Employee">
+		SELECT * FROM `employee` WHERE `name` like '%${name}%'
+	</select>
 
 </mapper>
