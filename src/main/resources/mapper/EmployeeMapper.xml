@@ -4,8 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.laputa.mybatis.mapper.EmployeeMapper">
 
-    <!-- mysql数据库语句映射，如果没有mysql可以去掉这个配置段 -->
-
     <!-- Long addEmp(Employee emp); -->
     <insert id="addEmp" parameterType="org.laputa.mybatis.entity.Employee" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `employee`(`name`,`email`,`gender`)
@@ -18,7 +16,7 @@
 	</select>
 
     <!-- Employee getEmpById(Integer id); -->
-    <select id="getEmpById" resultType="org.laputa.mybatis.entity.Employee">
+    <select id="getEmpById" parameterType="int" resultType="org.laputa.mybatis.entity.Employee">
 		SELECT * FROM `employee` WHERE `id` = #{id}
 	</select>
 
@@ -47,6 +45,47 @@
     <!-- List<Employee> getEmpsByPage(RowBounds bounds); -->
     <select id="getEmpsByPage" resultType="org.laputa.mybatis.entity.Employee">
 		SELECT * FROM `employee` WHERE `name` like '%${name}%'
+	</select>
+
+    <!-- Map<String, Object> getEmpToMapById(Integer id); -->
+    <select id="getEmpToMapById" resultType="map">
+		SELECT * FROM `employee` WHERE `id` = #{id}
+	</select>
+
+    <!-- Map<String, Employee> getEmpToMapLikeName(String name); -->
+    <select id="getEmpToMapLikeName" resultType="org.laputa.mybatis.entity.Employee">
+		SELECT * FROM `employee` WHERE `name` like #{name}
+	</select>
+
+    <!-- Employee getEmpByMapping(Integer id); -->
+    <resultMap id="empMap" type="org.laputa.mybatis.entity.Employee">
+        <!-- 设置主键映射 -->
+        <id column="id" property="id"/>
+        <!-- 普通字段映射 -->
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+    </resultMap>
+    <select id="getEmpByMapping" resultMap="empMap">
+		SELECT * FROM `employee` WHERE `id` = #{id}
+	</select>
+
+    <!-- Employee getEmpByIdWithDep1(Integer id); -->
+    <resultMap id="empCascadeDep1" type="org.laputa.mybatis.entity.Employee">
+        <!-- 设置主键映射 -->
+        <id column="id" property="id"/>
+        <!-- 普通字段映射 -->
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+        <!-- 级联查询部门 -->
+        <result column="depId" property="depId"/>
+    </resultMap>
+    <select id="getEmpByIdWithDep1" resultMap="empCascadeDep1">
+		SELECT *
+		FROM `employee` e, `department` d
+		WHERE e.`id` = #{id}
+		AND e.`dep_id` = d.`id`
 	</select>
 
 </mapper>

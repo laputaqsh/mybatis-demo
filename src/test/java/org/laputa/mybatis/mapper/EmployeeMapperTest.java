@@ -12,6 +12,7 @@ import org.laputa.mybatis.utils.SqlSessionUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeeMapperTest {
 
@@ -41,9 +42,10 @@ public class EmployeeMapperTest {
             SqlSession session = SqlSessionUtil.getSqlSession();
             EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 
-            List<Employee> emps = mapper.getAllEmps();
-            for (Employee emp : emps) {
-                System.out.println(emp);
+            Map<String, Object> empMap = mapper.getEmpToMapById(2);
+            for (String key : empMap.keySet()) {
+                Object val = empMap.get(key);
+                System.out.println(key + ": " + val);
             }
 
             session.close();
@@ -144,6 +146,72 @@ public class EmployeeMapperTest {
             for (Employee emp : emps) {
                 System.out.println(emp);
             }
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpToMapById() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Map<String, Object> empMap = mapper.getEmpToMapById(2);
+            for (String key : empMap.keySet()) {
+                Object val = empMap.get(key);
+                System.out.println(key + ": " + val);
+            }
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpToMapLikeName() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Map<String, Employee> empMap = mapper.getEmpToMapLikeName("%小%");
+            for (String key : empMap.keySet()) {
+                Employee val = empMap.get(key);
+                System.out.println(key + ": " + val);
+            }
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpByMapping() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee emp = mapper.getEmpByMapping(2);
+            System.out.println(emp);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpByIdWithDep1() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee employee = mapper.getEmpByIdWithDep1(2);
+            System.out.println(employee);
 
             session.close();
         } catch (IOException e) {

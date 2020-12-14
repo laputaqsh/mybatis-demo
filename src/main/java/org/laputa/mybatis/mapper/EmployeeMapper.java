@@ -1,9 +1,11 @@
 package org.laputa.mybatis.mapper;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.session.RowBounds;
 import org.laputa.mybatis.entity.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeMapper {
     Long addEmp(Employee emp);
@@ -21,4 +23,13 @@ public interface EmployeeMapper {
     List<Employee> getEmpsOrderByIdDesc();
 
     List<Employee> getEmpsByPage(RowBounds bounds);
+
+    Map<String, Object> getEmpToMapById(Integer id);
+
+    @MapKey("name")
+    Map<String, Employee> getEmpToMapLikeName(String name);
+
+    Employee getEmpByMapping(Integer id);
+
+    Employee getEmpByIdWithDep1(Integer id);
 }
