@@ -12,5 +12,5 @@ public class Employee {
     private String name;
     private String email;
     private String gender;
-    private Integer depId;
+    private Department dep;
 }

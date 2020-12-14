@@ -30,6 +30,6 @@
 
     <!-- 批量注册映射文件 -->
     <mappers>
-        <mapper resource="mapper/EmployeeMapper.xml"/>
+        <package name="org.laputa.mybatis.mapper"/>
     </mappers>
 </configuration>

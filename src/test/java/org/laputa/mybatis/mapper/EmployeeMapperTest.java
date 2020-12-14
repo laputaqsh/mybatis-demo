@@ -42,10 +42,9 @@ public class EmployeeMapperTest {
             SqlSession session = SqlSessionUtil.getSqlSession();
             EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 
-            Map<String, Object> empMap = mapper.getEmpToMapById(2);
-            for (String key : empMap.keySet()) {
-                Object val = empMap.get(key);
-                System.out.println(key + ": " + val);
+            List<Employee> emps = mapper.getAllEmps();
+            for (Employee emp : emps) {
+                System.out.println(emp);
             }
 
             session.close();
@@ -107,7 +106,7 @@ public class EmployeeMapperTest {
             SqlSession session = SqlSessionUtil.getSqlSession();
             EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 
-            List<Employee> emps = mapper.getEmpsLikeName("发到");
+            List<Employee> emps = mapper.getEmpsLikeName("小");
             for (Employee emp : emps) {
                 System.out.println(emp);
             }
@@ -210,8 +209,38 @@ public class EmployeeMapperTest {
             SqlSession session = SqlSessionUtil.getSqlSession();
             EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 
-            Employee employee = mapper.getEmpByIdWithDep1(2);
-            System.out.println(employee);
+            Employee emp = mapper.getEmpByIdWithDep1(2);
+            System.out.println(emp);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpByIdWithDep2() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee emp = mapper.getEmpByIdWithDep2(2);
+            System.out.println(emp);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpByIdWithDep3() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee emp = mapper.getEmpByIdWithDep3(2);
+            System.out.println(emp);
 
             session.close();
         } catch (IOException e) {
