@@ -132,4 +132,9 @@
 		SELECT * FROM employee WHERE id = #{id}
 	</select>
 
+    <!-- Employee getEmpByDepId(Integer depId); -->
+    <select id="getEmpByDepId" resultType="org.laputa.mybatis.entity.Employee">
+	    SELECT * FROM employee WHERE dep_id = #{depId}
+    </select>
+
 </mapper>

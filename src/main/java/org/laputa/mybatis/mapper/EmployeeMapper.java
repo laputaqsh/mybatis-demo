@@ -36,4 +36,6 @@ public interface EmployeeMapper {
     Employee getEmpByIdWithDep2(Integer id);
 
     Employee getEmpByIdWithDep3(Integer id);
+
+    Employee getEmpByDepId(Integer depId);
 }
