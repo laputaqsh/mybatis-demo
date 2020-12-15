@@ -137,4 +137,26 @@
 	    SELECT * FROM employee WHERE dep_id = #{depId}
     </select>
 
+    <!-- Employee getDepWithGirl(Integer id); -->
+    <resultMap id="depWithGirl" type="org.laputa.mybatis.entity.Employee">
+        <!-- 设置主键映射 -->
+        <id column="id" property="id"/>
+        <!-- 普通字段映射 -->
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+        <!-- 级联查询员工 -->
+        <discriminator column="gender" javaType="string">
+            <case value="女" resultType="org.laputa.mybatis.entity.Employee">
+                <association property="dep"
+                             select="org.laputa.mybatis.mapper.DepartmentMapper.getDepById"
+                             column="dep_id">
+                </association>
+            </case>
+        </discriminator>
+    </resultMap>
+    <select id="getDepWithGirl" resultMap="depWithGirl">
+	    SELECT * FROM employee WHERE id = #{id}
+    </select>
+
 </mapper>

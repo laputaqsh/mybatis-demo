@@ -38,4 +38,6 @@ public interface EmployeeMapper {
     Employee getEmpByIdWithDep3(Integer id);
 
     Employee getEmpByDepId(Integer depId);
+
+    Employee getDepWithGirl(Integer id);
 }

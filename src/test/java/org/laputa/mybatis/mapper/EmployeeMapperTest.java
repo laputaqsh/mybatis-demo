@@ -247,4 +247,37 @@ public class EmployeeMapperTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void getEmpByDepId() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee emp = mapper.getEmpByDepId(2);
+            System.out.println(emp);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getDepWithGirl() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee emp1 = mapper.getDepWithGirl(3);
+            System.out.println(emp1);
+
+            Employee emp2 = mapper.getDepWithGirl(4);
+            System.out.println(emp2);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
