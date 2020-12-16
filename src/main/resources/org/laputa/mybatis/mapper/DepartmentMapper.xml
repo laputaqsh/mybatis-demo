@@ -6,31 +6,34 @@
 
     <!-- Department getDepById(Integer id); -->
     <select id="getDepById" resultType="org.laputa.mybatis.entity.Department">
-		SELECT * FROM department WHERE id = #{id}
-	</select>
+        select *
+        from department
+        where id = #{id}
+    </select>
 
     <!-- Department getDepByIdWithEmps1(Integer id); -->
     <resultMap id="depCascadeEmps1" type="org.laputa.mybatis.entity.Department">
         <!-- 设置主键映射 -->
         <id column="id" property="id"/>
         <!-- 普通字段映射 -->
-        <result column="name" property="name"/>
+        <result column="title" property="title"/>
         <result column="intro" property="intro"/>
         <!-- 级联查询员工 -->
         <collection property="emps" ofType="org.laputa.mybatis.entity.Employee">
             <!-- 设置主键映射 -->
             <id column="id" property="id"/>
             <!-- 普通字段映射 -->
-            <result column="name" property="name"/>
+            <result column="title" property="title"/>
             <result column="email" property="email"/>
             <result column="gender" property="gender"/>
         </collection>
     </resultMap>
     <select id="getDepByIdWithEmps1" resultMap="depCascadeEmps1">
-        SELECT *
-        FROM employee e, department d
-        WHERE d.id = #{id}
-        AND e.dep_id = d.id
+        select *
+        from employee e,
+             department d
+        where d.id = #{id}
+          and e.dep_id = d.id
     </select>
 
     <!-- Department getDepByIdWithEmps2(Integer id); -->
@@ -38,7 +41,7 @@
         <!-- 设置主键映射 -->
         <id column="id" property="id"/>
         <!-- 普通字段映射 -->
-        <result column="name" property="name"/>
+        <result column="title" property="title"/>
         <result column="intro" property="intro"/>
         <!-- 级联查询员工 -->
         <collection property="emps"
@@ -47,7 +50,9 @@
         </collection>
     </resultMap>
     <select id="getDepByIdWithEmps2" resultMap="depCascadeEmps2">
-	    SELECT * FROM department WHERE id = #{id}
+        select *
+        from department
+        where id = #{id}
     </select>
 
 </mapper>

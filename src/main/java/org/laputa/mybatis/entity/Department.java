@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Department {
     private Integer id;
-    private String name;
+    private String title;
     private String intro;
     private List<Employee> emps;
 }

@@ -6,55 +6,55 @@
 
     <!-- Long addEmp(Employee emp); -->
     <insert id="addEmp" parameterType="org.laputa.mybatis.entity.Employee" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO employee(name,email,gender)
-		VALUES(#{name},#{email},#{gender})
+		insert into employee(title,email,gender)
+		values(#{title},#{email},#{gender})
 	</insert>
 
     <!-- List<Employee> getAllEmps(); -->
     <select id="getAllEmps" resultType="org.laputa.mybatis.entity.Employee">
-		SELECT * FROM employee
+		select * from employee
 	</select>
 
     <!-- Employee getEmpById(Integer id); -->
     <select id="getEmpById" parameterType="int" resultType="org.laputa.mybatis.entity.Employee">
-		SELECT * FROM employee WHERE id = #{id}
+		select * from employee where id = #{id}
 	</select>
 
     <!-- Long updateEmp(Employee emp); -->
     <update id="updateEmp">
-		UPDATE employee
-		SET name=#{name},email=#{email},gender=#{gender}
-		WHERE id=#{id}
+		update employee
+		set title=#{title}, email=#{email}, gender=#{gender}
+		where id=#{id}
 	</update>
 
     <!-- Long delEmpById(Integer id); -->
     <delete id="delEmpById">
-		DELETE FROM employee WHERE id=#{id}
+		delete from employee where id=#{id}
 	</delete>
 
-    <!-- List<Employee> getEmpsLikeName(String name); -->
-    <select id="getEmpsLikeName" resultType="org.laputa.mybatis.entity.Employee">
-		SELECT * FROM employee WHERE name LIKE '%${name}%'
+    <!-- List<Employee> getEmpsLikeTitle(String title); -->
+    <select id="getEmpsLikeTitle" resultType="org.laputa.mybatis.entity.Employee">
+		select * from employee where title LIKE '%${title}%'
 	</select>
 
     <!-- List<Employee> getEmpsOrderByIdDesc(); -->
     <select id="getEmpsOrderByIdDesc" resultType="org.laputa.mybatis.entity.Employee">
-		SELECT * FROM employee ORDER BY id DESC
+		select * from employee ORDER BY id DESC
 	</select>
 
     <!-- List<Employee> getEmpsByPage(RowBounds bounds); -->
     <select id="getEmpsByPage" resultType="org.laputa.mybatis.entity.Employee">
-		SELECT * FROM employee WHERE name like '%${name}%'
+		select * from employee where title like '%${title}%'
 	</select>
 
     <!-- Map<String, Object> getEmpToMapById(Integer id); -->
     <select id="getEmpToMapById" resultType="map">
-		SELECT * FROM employee WHERE id = #{id}
+		select * from employee where id = #{id}
 	</select>
 
-    <!-- Map<String, Employee> getEmpToMapLikeName(String name); -->
-    <select id="getEmpToMapLikeName" resultType="org.laputa.mybatis.entity.Employee">
-		SELECT * FROM employee WHERE name like #{name}
+    <!-- Map<String, Employee> getEmpToMapLikeTitle(String title); -->
+    <select id="getEmpToMapLikeTitle" resultType="org.laputa.mybatis.entity.Employee">
+		select * from employee where title like #{title}
 	</select>
 
     <!-- Employee getEmpByMapping(Integer id); -->
@@ -62,12 +62,12 @@
         <!-- 设置主键映射 -->
         <id column="id" property="id"/>
         <!-- 普通字段映射 -->
-        <result column="name" property="name"/>
+        <result column="title" property="title"/>
         <result column="email" property="email"/>
         <result column="gender" property="gender"/>
     </resultMap>
     <select id="getEmpByMapping" resultMap="empMap">
-		SELECT * FROM employee WHERE id = #{id}
+		select * from employee where id = #{id}
 	</select>
 
     <!-- Employee getEmpByIdWithDep1(Integer id); -->
@@ -75,19 +75,19 @@
         <!-- 设置主键映射 -->
         <id column="id" property="id"/>
         <!-- 普通字段映射 -->
-        <result column="name" property="name"/>
+        <result column="title" property="title"/>
         <result column="email" property="email"/>
         <result column="gender" property="gender"/>
         <!-- 级联查询部门 -->
         <result column="dep_id" property="dep.id"/>
-        <result column="dep_name" property="dep.name"/>
+        <result column="dep_title" property="dep.title"/>
         <result column="dep_intro" property="dep.intro"/>
     </resultMap>
     <select id="getEmpByIdWithDep1" resultMap="empCascadeDep1">
-		SELECT *
-		FROM employee e, department d
-		WHERE e.id = #{id}
-		AND e.dep_id = d.id
+		select *
+		from employee e, department d
+		where e.id = #{id}
+		and e.dep_id = d.id
 	</select>
 
     <!-- Employee getEmpByIdWithDep2(Integer id); -->
@@ -95,7 +95,7 @@
         <!-- 设置主键映射 -->
         <id column="id" property="id"/>
         <!-- 普通字段映射 -->
-        <result column="name" property="name"/>
+        <result column="title" property="title"/>
         <result column="email" property="email"/>
         <result column="gender" property="gender"/>
         <!-- 级联查询部门 -->
@@ -103,15 +103,15 @@
             <!-- 设置主键映射 -->
             <id column="dep_id" property="id"/>
             <!-- 普通字段映射 -->
-            <result column="dep_name" property="name"/>
+            <result column="dep_title" property="title"/>
             <result column="dep_intro" property="intro"/>
         </association>
     </resultMap>
     <select id="getEmpByIdWithDep2" resultMap="empCascadeDep2">
-		SELECT *
-		FROM employee e, department d
-		WHERE e.id = #{id}
-		AND e.dep_id = d.id
+		select *
+		from employee e, department d
+		where e.id = #{id}
+		and e.dep_id = d.id
 	</select>
 
     <!-- Employee getEmpByIdWithDep3(Integer id); -->
@@ -119,7 +119,7 @@
         <!-- 设置主键映射 -->
         <id column="id" property="id"/>
         <!-- 普通字段映射 -->
-        <result column="name" property="name"/>
+        <result column="title" property="title"/>
         <result column="email" property="email"/>
         <result column="gender" property="gender"/>
         <!-- 级联查询部门 -->
@@ -129,12 +129,12 @@
         </association>
     </resultMap>
     <select id="getEmpByIdWithDep3" resultMap="empCascadeDep3">
-		SELECT * FROM employee WHERE id = #{id}
+		select * from employee where id = #{id}
 	</select>
 
     <!-- Employee getEmpByDepId(Integer depId); -->
     <select id="getEmpByDepId" resultType="org.laputa.mybatis.entity.Employee">
-	    SELECT * FROM employee WHERE dep_id = #{depId}
+	    select * from employee where dep_id = #{depId}
     </select>
 
     <!-- Employee getDepWithGirl(Integer id); -->
@@ -142,7 +142,7 @@
         <!-- 设置主键映射 -->
         <id column="id" property="id"/>
         <!-- 普通字段映射 -->
-        <result column="name" property="name"/>
+        <result column="title" property="title"/>
         <result column="email" property="email"/>
         <result column="gender" property="gender"/>
         <!-- 级联查询员工 -->
@@ -156,7 +156,50 @@
         </discriminator>
     </resultMap>
     <select id="getDepWithGirl" resultMap="depWithGirl">
-	    SELECT * FROM employee WHERE id = #{id}
+	    select * from employee where id = #{id}
     </select>
+
+    <!-- List<Employee> getEmpsByConditionIf(Employee emp); -->
+    <select id="getEmpsByConditionIf" resultType="org.laputa.mybatis.entity.Employee">
+        select * from employee
+        <where>
+            <if test="id!=null">
+                and id = #{id}
+            </if>
+            <if test="title!=null">
+                and title like #{title}
+            </if>
+            <if test="email!=null">
+                and email like #{email}
+            </if>
+            <if test="gender!=null">
+                and gender like #{gender}
+            </if>
+            <if test="dep!=null">
+                and dep_id = #{dep.id}
+            </if>
+        </where>
+    </select>
+
+    <!-- boolean updateEmpByConditionIf(Employee emp); -->
+    <update id="updateEmpByConditionIf">
+        update employee
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="email!=null">
+                email = #{email},
+            </if>
+            <if test="gender!=null">
+                gender = #{gender},
+            </if>
+            <if test="dep!=null">
+                dep_id = #{dep.id},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
 
 </mapper>

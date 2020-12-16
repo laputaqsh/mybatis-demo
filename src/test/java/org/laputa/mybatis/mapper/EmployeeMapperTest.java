@@ -1,16 +1,13 @@
 package org.laputa.mybatis.mapper;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
+import org.laputa.mybatis.entity.Department;
 import org.laputa.mybatis.entity.Employee;
 import org.laputa.mybatis.utils.SqlSessionUtil;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +20,6 @@ public class EmployeeMapperTest {
             EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 
             Employee emp = new Employee();
-            emp.setName("老九");
-            emp.setEmail("123@qq.com");
-            emp.setGender("男");
 
             Long rowCounts = mapper.addEmp(emp);
             System.out.println("影响行数：" + rowCounts);
@@ -101,12 +95,12 @@ public class EmployeeMapperTest {
     }
 
     @Test
-    public void getEmpsLikeName() {
+    public void getEmpsLikeTitle() {
         try {
             SqlSession session = SqlSessionUtil.getSqlSession();
             EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 
-            List<Employee> emps = mapper.getEmpsLikeName("小");
+            List<Employee> emps = mapper.getEmpsLikeTitle("小");
             for (Employee emp : emps) {
                 System.out.println(emp);
             }
@@ -171,12 +165,12 @@ public class EmployeeMapperTest {
     }
 
     @Test
-    public void getEmpToMapLikeName() {
+    public void getEmpToMapLikeTitle() {
         try {
             SqlSession session = SqlSessionUtil.getSqlSession();
             EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 
-            Map<String, Employee> empMap = mapper.getEmpToMapLikeName("%小%");
+            Map<String, Employee> empMap = mapper.getEmpToMapLikeTitle("%小%");
             for (String key : empMap.keySet()) {
                 Employee val = empMap.get(key);
                 System.out.println(key + ": " + val);
@@ -274,6 +268,45 @@ public class EmployeeMapperTest {
 
             Employee emp2 = mapper.getDepWithGirl(4);
             System.out.println(emp2);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpsByConditionIf() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee emp = new Employee();
+            emp.setId(2);
+
+            List<Employee> emps = mapper.getEmpsByConditionIf(emp);
+            System.out.println(emps);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void updateEmpByConditionIf() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Department dep = new Department();
+            dep.setId(1);
+
+            Employee emp = new Employee();
+            emp.setId(8);
+            emp.setDep(dep);
+            boolean b = mapper.updateEmpByConditionIf(emp);
+            System.out.println(b);
 
             session.close();
         } catch (IOException e) {

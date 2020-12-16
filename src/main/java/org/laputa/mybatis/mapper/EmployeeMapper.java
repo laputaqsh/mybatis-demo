@@ -18,7 +18,7 @@ public interface EmployeeMapper {
 
     Long delEmpById(Integer id);
 
-    List<Employee> getEmpsLikeName(String name);
+    List<Employee> getEmpsLikeTitle(String title);
 
     List<Employee> getEmpsOrderByIdDesc();
 
@@ -26,8 +26,8 @@ public interface EmployeeMapper {
 
     Map<String, Object> getEmpToMapById(Integer id);
 
-    @MapKey("name")
-    Map<String, Employee> getEmpToMapLikeName(String name);
+    @MapKey("title")
+    Map<String, Employee> getEmpToMapLikeTitle(String title);
 
     Employee getEmpByMapping(Integer id);
 
@@ -40,4 +40,8 @@ public interface EmployeeMapper {
     Employee getEmpByDepId(Integer depId);
 
     Employee getDepWithGirl(Integer id);
+
+    List<Employee> getEmpsByConditionIf(Employee emp);
+
+    boolean updateEmpByConditionIf(Employee emp);
 }
