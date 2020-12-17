@@ -184,7 +184,14 @@
     <!-- boolean updateEmpByConditionIf(Employee emp); -->
     <update id="updateEmpByConditionIf">
         update employee
-        <set>
+        <!--
+        trim：
+            prefix：给拼串后的整个字符串加一个前缀
+            prefixOverrides：去掉整个字符串前面多余的字符，支持或（|）
+            suffix：给拼串后的整个字符串加一个后缀
+            suffixOverrides：去掉整个字符串后面多余的字符，支持或（|）
+        -->
+        <trim prefix="set" suffixOverrides=",">
             <if test="title!=null">
                 title = #{title},
             </if>
@@ -197,7 +204,7 @@
             <if test="dep!=null">
                 dep_id = #{dep.id},
             </if>
-        </set>
+        </trim>
         where id = #{id}
     </update>
 
