@@ -1,6 +1,7 @@
 package org.laputa.mybatis.mapper;
 
 import org.apache.ibatis.annotations.MapKey;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.laputa.mybatis.entity.Employee;
 
@@ -44,4 +45,12 @@ public interface EmployeeMapper {
     List<Employee> getEmpsByConditionIf(Employee emp);
 
     boolean updateEmpByConditionIf(Employee emp);
+
+    List<Employee> getEmpsByConditionChoose(Employee emp);
+
+    List<Employee> getEmpsByConditionForeach(@Param("ids") List<Integer> ids);
+
+    void addEmps(@Param("emps") List<Employee> emps);
+
+    List<Employee> getEmpsByInnerParameter(String title);
 }
