@@ -8,8 +8,7 @@ import org.laputa.mybatis.entity.Employee;
 import org.laputa.mybatis.utils.SqlSessionUtil;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EmployeeMapperTest {
 
@@ -307,6 +306,78 @@ public class EmployeeMapperTest {
             emp.setDep(dep);
             boolean b = mapper.updateEmpByConditionIf(emp);
             System.out.println(b);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpsByConditionChoose() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Employee emp = new Employee();
+            emp.setGender("女");
+            List<Employee> emps = mapper.getEmpsByConditionChoose(emp);
+            System.out.println(emps);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpsByConditionForeach() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            Integer[] arr = new Integer[]{1, 3, 5, 7};
+            List<Integer> ids = new ArrayList<Integer>(Arrays.asList(arr));
+            List<Employee> emps = mapper.getEmpsByConditionForeach(ids);
+            System.out.println(emps);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addEmps() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            List<Employee> emps = new ArrayList<Employee>();
+            Department dep1 = new Department();
+            dep1.setId(1);
+            Employee emp1 = new Employee(0, "雪怡", "abc123@qq.com", "女", dep1);
+            Department dep2 = new Department();
+            dep2.setId(3);
+            Employee emp2 = new Employee(0, "卢瑟", "abc123@qq.com", "男", dep2);
+            emps.add(emp1);
+            emps.add(emp2);
+            mapper.addEmps(emps);
+
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getEmpsByInnerParameter() {
+        try {
+            SqlSession session = SqlSessionUtil.getSqlSession();
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+            List<Employee> emps = mapper.getEmpsByInnerParameter("老");
+            System.out.println(emps);
 
             session.close();
         } catch (IOException e) {
